@@ -67,7 +67,7 @@ void ULListStr::clear()
 void ULListStr::push_back(const std::string& val)
 {
   if (tail_ == NULL) {
-    // list is empty -- allocate first node
+    // empty, I will alloacate the first note
     Item* newItem = new Item();
     newItem->val[0] = val;
     newItem->first = 0;
@@ -78,7 +78,7 @@ void ULListStr::push_back(const std::string& val)
     tail_->val[tail_->last] = val;
     tail_->last++;
   } else {
-    // tail_ is full -- allocate a new node after it
+    // tail is full, need to allocate new node after that
     Item* newItem = new Item();
     newItem->val[0] = val;
     newItem->first = 0;
@@ -99,13 +99,13 @@ void ULListStr::pop_back()
   tail_->last--;
 
   if (tail_->first == tail_->last) {
-    // node is now empty -- deallocate it
+    // Empty node, I will deallocate.
     Item* toDelete = tail_;
     tail_ = tail_->prev;
     if (tail_ != NULL) {
       tail_->next = NULL;
     } else {
-      head_ = NULL; // list is now empty
+      head_ = NULL; // List empty.
     }
     delete toDelete;
   }
@@ -122,12 +122,10 @@ void ULListStr::push_front(const std::string& val)
     newItem->last = 1;
     head_ = tail_ = newItem;
   } else if (head_->first > 0) {
-    // room before 'first' in head_'s array
     head_->first--;
     head_->val[head_->first] = val;
   } else {
-    // head_ has no room before 'first' -- allocate a new head node
-    // place value at the last slot, leaving room before it for future push_fronts
+    // head_ has no room before 'first' 
     Item* newItem = new Item();
     newItem->first = ARRSIZE - 1;
     newItem->last = ARRSIZE;
@@ -148,7 +146,7 @@ void ULListStr::pop_front()
   head_->first++;
 
   if (head_->first == head_->last) {
-    // node is now empty -- deallocate it
+    // Node empty; deallocate it
     Item* toDelete = head_;
     head_ = head_->next;
     if (head_ != NULL) {
